@@ -1,0 +1,41 @@
+{
+    "Home":"Page d'accueil",
+    "Cartwidget":"Chariot",
+    "ordernowwidget":"Commandez maintenant",
+    "notificationwidget":"notification",
+    "settingwidget":"réglage",
+
+    "ContactUs":"Nous contacter",
+    "PrivacyandPolicy":"Confidentialité et politique",
+    "gallery":"Galerie",
+    "TermsandCondition":"Termes et conditions",
+    "languageChange":"English",
+    "ordersHistory":"Historique des commandes",
+    "franchise":"La franchise",
+    "LogOut":"Se déconnecter",
+    
+    "SpecialToday":"Spécial aujourd'hui",
+    "Menu":"Menu",
+    "Coming Soon":"À venir",
+    "Gallery":"Galerie",
+    "HappyCustomers":"Clients heureux",
+
+    "Specialty":"Spécialité",
+    "Desserts":"Desserts",
+    "Drinks":"Boissons",
+    "Snacks":"Snacks",
+    "family":"famille",
+    "PrivacyPolicy1":"Shraim's Sweets Corporation prend les données des clients au sérieux. ",
+    "PrivacyPolicy2": "Veuillez lire ci-dessous notre politique de confidentialité, elle décrit comment notre site Web utilise, partage et collecte des données personnelles. En accédant au site, vous acceptez notre politique de confidentialité. ",
+    "PrivacyPolicy3":"Shraim's Sweets Corporation protège fortement les informations personnelles obtenues à des fins commerciales concernant ses clients et tous les employés sont tenus de suivre la politique de confidentialité de la société. De plus, le site Web identifiera le but et la raison avant que nous collections des informations personnelles et nous exigeons le consentement et la reconnaissance pour les collecter, les utiliser et les divulguer. ",
+    
+    "TermAndConditionpart1":"Veuillez lire les conditions avant d'utiliser le site Web de Shraim's Sweets. Si vous n'acceptez pas ces termes et conditions, veuillez ne pas utiliser ce site Web. Votre utilisation continue de ce site Web confirme votre acceptation de ces conditions.",
+    "TermAndConditionpart2":"• Le logo, les images, les recettes et les marques d'identification de Sherim's Sweets sont des marques de commerce et des noms et sont la propriété exclusive de la société.",
+    "TermAndConditionpart3":"• Il n'est pas nécessaire de s'inscrire auprès de nous pour utiliser la plupart des parties de ce site Web. Cependant, certaines zones de ce site Web ne seront accessibles que si vous vous inscrivez",
+    "TermAndConditionpart4":"• Toutes les mesures raisonnables sont prises par l'équipe pour s'assurer que ce site Web est fonctionnel 7 jours sur 7. Cependant, des problèmes techniques peuvent entraîner des temps d'arrêt et, par conséquent, nous ne serons pas responsables si ce site Web n'est pas disponible. De plus, nous essayons toujours d'avertir des problèmes de maintenance qui peuvent entraîner des temps d'arrêt du site Web, mais nous ne serons pas obligés de fournir un tel avis.",
+    "TermAndConditionpart5":"• Tout matériel qu'un client envoie ou publie sur le site Web de Shraim's Sweets sera considéré comme non exclusif et non confidentiel. Nous aurons le droit d'utiliser, de copier, de distribuer à toute autre fin que nous jugeons appropriée tout le matériel fourni à la société, à l'exception de tous les renseignements personnels.",
+    "TermAndConditionpart6":"• Lors de l'utilisation du site Web de Shraim's Sweets, les clients ne doivent pas publier ni envoyer de matériel nuisible, y compris, mais sans s'y limiter, des virus informatiques, des données corrompues ou d'autres données potentiellement nuisibles.",
+    "TermAndConditionpart7":"• En tant qu'utilisateur, vous avez accepté que Shraim's Sweets puisse collecter des données techniques sur l'appareil pour faciliter l'utilisation du site Web et/ou de l'application mobile.",
+    "TermAndConditionpart8":"• Shraim's Sweets stockera les informations personnelles dans la base de données ou les transférera si nécessaire, mais la sécurisation des informations aura la plus haute priorité.",
+    "TermAndConditionpart9":"• Shraim's Sweets peut résilier son site Web ou son application mobile sans préavis ni annonce."
+}

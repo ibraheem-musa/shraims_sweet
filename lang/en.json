@@ -1,0 +1,44 @@
+{
+    "Home":"Home screen",
+    "Cartwidget":"The Cart",
+    "ordernowwidget":"Order Now",
+    "notificationwidget":"Notification",
+    "settingwidget":"Setting",
+
+    "ContactUs":"Contact Us",
+    "PrivacyandPolicy":"Privacy Policy",
+    "gallery":"Gallery",
+    "TermsandCondition":"Terms and Condition",
+    "languageChange":"france",
+    "ordersHistory":"orders History",
+    "franchise":"Franchise",
+    "LogOut":"Log out",
+
+    "SpecialToday":"Special Today",
+    "Menu":"Menu",
+    "Coming Soon":"Coming Soon",
+    "Gallery":"Gallery",
+    "HappyCustomers":"Happy Customers",
+
+    "Specialty":"Specialty",
+    "Desserts":"Desserts",
+    "Drinks":"Drinks",
+    "Snacks":"Snacks",
+    "family":"family",
+
+    "PrivacyPolicy1":"Shraim’s Sweets Corporation takes customer's data seriously. ",
+    "PrivacyPolicy2": "Please read below our privacy policy, it describes how our website use, share, and collect personal data. By accessing the website, you accept our privacy policy. ",
+    "PrivacyPolicy3":"Shraim’s Sweets Corporation strongly protects personal information obtained for business use about their customers and all employees are required to follow the privacy policy of the corporation. In addition, the website will identify the purpose and the reason before we collect personal information and we require consent and acknowledgement to collect, use, and disclose it. ",
+    
+
+    
+    "TermAndConditionpart1":"Please read the terms before you use Shraim’s Sweets website. If you do not accept these terms and conditions, please do not use this website. Your continued use of this website confirms your acceptance of these terms.",
+    "TermAndConditionpart2":"•  Sherim’s Sweets logo, pictures, recipes, and identifying marks are trademarks and names and are the exclusive property of the corporation. ",
+    "TermAndConditionpart3":"•  It is not necessary to register with us in order to use most parts of this website. However, some areas of this website will only be accessible only if you register",
+    "TermAndConditionpart4":"•  All reasonable measures are taken by the team to ensure that this website is functional 7days a week. However, technical issues may result in downtime and accordingly, we will not be liable if this website is unavailable. Furthermore, we always try to give warnings of maintenance issues that may result in website downtime but we shall not be obliged to provide such notice.",
+    "TermAndConditionpart5":"•  Any material that a customer sends or post to Shraim’s Sweets website shall be considered non-proprietary and non-confidential. We shall be entitled to use, copy, distribute for such other purpose as we deem appropriate all material provided to the corporation, with exception of all personal information. ",
+    "TermAndConditionpart6":"•  When using Shraim’s sweets website customers shall not post or send any harmful material including but not limited to computer viruses, corrupted data, or other potentially harmful data.",
+    "TermAndConditionpart7":"•As a user, you agreed that Shraim’s Sweets may collect and technical data bout the device to facilitate the use of the website and/or the mobile application. ",
+    "TermAndConditionpart8":"•  Shraim’s Sweets will store personal information in the database or transfer them if needed, however securing the information will take the highest priority. ",
+    "TermAndConditionpart9":"•  Shraim’s Sweets may terminate their website or Mobile App without notice or announcement."
+}
