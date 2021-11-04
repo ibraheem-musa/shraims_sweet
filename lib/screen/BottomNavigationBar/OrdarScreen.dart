@@ -19,6 +19,53 @@ class OrdarScreen extends StatefulWidget {
 }
 
 class _OrdarScreenState extends State<OrdarScreen> {
+  List<Category> categorylistforshow;
+  List<ProductCategory> productCategorylistforshow;
+
+  Future<List<Category>> _getCategory() async {
+    String url = 'http://45.76.143.83/api/authentication/categories.php';
+    var response = await http.post(
+      Uri.parse(url),
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      final List<Category> categorylist = categoryFromJson(response.body);
+      return categorylist;
+    }
+  }
+
+  Future<List<ProductCategory>> _getProductCategory() async {
+    String url =
+        'http://45.76.143.83/api/authentication/productCategory.php?category_id=' +
+            "2";
+    var response = await http.post(
+      Uri.parse(url),
+    );
+    // print(response.body);
+    if (response.statusCode == 200) {
+      final List<ProductCategory> productCategorylist =
+          productCategoryFromJson(response.body);
+      return productCategorylist;
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getProductCategory().then((productCategorylist) {
+      setState(() {
+        productCategorylistforshow = productCategorylist;
+      });
+    });
+    _getCategory().then((categorylist) {
+      setState(() {
+        print("object");
+        categorylistforshow = categorylist;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // MenuCategoryProvider menuCategoryProvider =
@@ -30,52 +77,6 @@ class _OrdarScreenState extends State<OrdarScreen> {
         Provider.of<CategoryImageprocaider>(context, listen: false);
     int idForcat = 0;
 
-    List<Category> categorylistforshow;
-    List<ProductCategory> productCategorylistforshow;
-
-    Future<List<Category>> _getCategory() async {
-      String url = 'http://45.76.143.83/api/authentication/categories.php';
-      var response = await http.post(
-        Uri.parse(url),
-      );
-      print(response.body);
-      if (response.statusCode == 200) {
-        final List<Category> categorylist = categoryFromJson(response.body);
-        return categorylist;
-      }
-    }
-
-    // Future<List<ProductCategory>> _getProductCategory() async {
-    //   String url =
-    //       'http://45.76.143.83/api/authentication/productCategory.php?category_id=' +
-    //           "1";
-    //   var response = await http.post(
-    //     Uri.parse(url),
-    //   );
-    //   // print(response.body);
-    //   if (response.statusCode == 200) {
-    //     final List<ProductCategory> productCategorylist =
-    //         productCategoryFromJson(response.body);
-    //     return productCategorylist;
-    //   }
-    // }
-
-    @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      // _getProductCategory().then((productCategorylist) {
-      //   setState(() {
-      //     productCategorylistforshow = productCategorylist;
-      //   });
-      // });
-      _getCategory().then((categorylist) {
-        setState(() {
-          categorylistforshow = categorylist;
-        });
-      });
-    }
-
     return Container(
       color: ColorForDesign().black,
       child: Container(
@@ -83,7 +84,7 @@ class _OrdarScreenState extends State<OrdarScreen> {
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height / 5,
+              height: MediaQuery.of(context).size.height / 4,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (_, index) {
@@ -154,7 +155,7 @@ class cercilCard extends StatelessWidget {
         // ),
         color: Colors.transparent,
         child: Container(
-          height: MediaQuery.of(context).size.height / 5,
+          height: MediaQuery.of(context).size.height / 4,
           width: MediaQuery.of(context).size.width / 4,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -170,7 +171,7 @@ class cercilCard extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 30,
               ),
               Text(
-                text,
+                text, textAlign: TextAlign.center,
                 // AppLocalizations.of(context).translate(text),
                 style: TextStyle(
                   color: ColorForDesign().Gold,

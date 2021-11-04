@@ -2,6 +2,7 @@ import 'package:first_app_for_test/Colors.dart';
 import 'package:first_app_for_test/applocal.dart';
 import 'package:first_app_for_test/main.dart';
 import 'package:first_app_for_test/provider/drawerprovider.dart';
+import 'package:first_app_for_test/screen/BottomNavigationBar/SettingsScreen.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/ContactUs.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/Franchise.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/Galary.dart';
@@ -85,6 +86,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 borderRadius: BorderRadius.circular(50.0),
                 child: Image.asset('lib/assets/Shraims_Logo.jpg'),
               ),
+              otherAccountsPictures: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SettingScreen()));
+                    },
+                    icon: Icon(Icons.settings))
+              ],
               accountName: Text('data'),
               accountEmail: !loginORlogout
                   ? Container(

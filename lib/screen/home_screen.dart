@@ -6,6 +6,7 @@ import 'package:first_app_for_test/screen/BottomNavigationBar/OrdarScreen.dart';
 import 'package:first_app_for_test/screen/BottomNavigationBar/SettingsScreen.dart';
 import 'package:first_app_for_test/widget/Drawer_widget.dart';
 import 'package:first_app_for_test/screen/BottomNavigationBar/HomeScreenbody.dart';
+import 'package:badges/badges.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // var argumentchek = ModalRoute.of(context).settings.arguments as bool;
+    var argumentchek = ModalRoute.of(context).settings.arguments as bool;
 
     final tabe = [
       HomeScreenBody(),
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
             title: Text(
               AppLocalizations.of(context).translate(widgetname[curentIndex]),
             ),
-            backgroundColor: ColorForDesign().Gold),
+            backgroundColor: ColorForDesign().black),
         body: tabe[curentIndex],
         drawer: DrawerWidget(),
         bottomNavigationBar: CurvedNavigationBar(
@@ -57,14 +58,20 @@ class _HomeScreenState extends State<HomeScreen> {
           color: ColorForDesign().Gold,
           items: <Widget>[
             Icon(Icons.home, color: ColorForDesign().black, size: 30),
-            Icon(Icons.shopping_cart_rounded,
-                color: ColorForDesign().black, size: 30),
+            Badge(
+              badgeContent: Text('3'),
+              child: Icon(Icons.shopping_cart_rounded,
+                  color: ColorForDesign().black, size: 30),
+            ),
+            // Icon(Icons.shopping_cart_rounded,
+            //     color: ColorForDesign().black, size: 30),
+
             Icon(Icons.account_balance_wallet_outlined,
                 color: ColorForDesign().black, size: 30),
             Icon(Icons.notifications, color: ColorForDesign().black, size: 30),
             Icon(Icons.settings, color: ColorForDesign().black, size: 30)
           ],
-          animationDuration: Duration(milliseconds: 250),
+          animationDuration: Duration(milliseconds: 300),
           animationCurve: Curves.linearToEaseOut,
           height: 50,
           onTap: (index) {
