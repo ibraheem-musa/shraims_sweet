@@ -46,9 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         backgroundColor: ColorForDesign().black,
         appBar: AppBar(
+            // iconTheme: IconThemeData(color: Colors.white),
             centerTitle: true,
             title: Text(
-              AppLocalizations.of(context).translate(widgetname[curentIndex]),
+              AppLocalizations.of(context).translate(
+                widgetname[curentIndex],
+              ),
+              style: TextStyle(color: ColorForDesign().Gold),
             ),
             backgroundColor: ColorForDesign().black),
         body: tabe[curentIndex],

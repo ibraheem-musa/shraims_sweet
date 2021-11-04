@@ -82,7 +82,12 @@ class MyAppState extends State<MyApp> {
           },
           locale: _locale,
           theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              iconTheme: IconThemeData(color: ColorForDesign().Gold),
+            ),
             primarySwatch: Colors.amber,
+            primaryTextTheme:
+                TextTheme(headline6: TextStyle(color: Colors.white)),
           ),
           home: Splash(),
           routes: {

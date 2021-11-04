@@ -27,17 +27,17 @@ class _OrdarScreenState extends State<OrdarScreen> {
     var response = await http.post(
       Uri.parse(url),
     );
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       final List<Category> categorylist = categoryFromJson(response.body);
       return categorylist;
     }
   }
 
-  Future<List<ProductCategory>> _getProductCategory() async {
+  Future<List<ProductCategory>> _getProductCategory(int id) async {
     String url =
         'http://45.76.143.83/api/authentication/productCategory.php?category_id=' +
-            "2";
+            id.toString();
     var response = await http.post(
       Uri.parse(url),
     );
@@ -53,7 +53,7 @@ class _OrdarScreenState extends State<OrdarScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getProductCategory().then((productCategorylist) {
+    _getProductCategory(1).then((productCategorylist) {
       setState(() {
         productCategorylistforshow = productCategorylist;
       });
@@ -90,16 +90,23 @@ class _OrdarScreenState extends State<OrdarScreen> {
                 itemBuilder: (_, index) {
                   Category categoryApi = categorylistforshow[index];
                   if (categorylistforshow.isEmpty) {
-                    print(" false");
                     return Text(
                       'NO DATA',
                       style: TextStyle(color: ColorForDesign().Gold),
                     );
                   } else {
-                    print(" true");
                     return GestureDetector(
                         onTap: () {
-                          print('object');
+                          int a = categoryApi.id;
+
+                          setState(() {
+                            _getProductCategory(a).then((productCategorylist) {
+                              setState(() {
+                                productCategorylistforshow =
+                                    productCategorylist;
+                              });
+                            });
+                          });
                         },
                         child: cercilCard(
                           image:
@@ -115,22 +122,30 @@ class _OrdarScreenState extends State<OrdarScreen> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: menuProductProvider.getfifiler(idForcat).length,
+                  itemCount: null == productCategorylistforshow
+                      ? 0
+                      : productCategorylistforshow.length,
                   itemBuilder: (_, i) {
-                    return GestureDetector(
-                      onTap: () {
-                        print(idForcat);
-                      },
-                      child: CardForsubcatogry(
-                        image: menuProductProvider
-                            .getfifiler(idForcat)[i]
-                            .logoimage,
-                        price:
-                            menuProductProvider.getfifiler(idForcat)[i].price,
-                        textforname:
-                            menuProductProvider.getfifiler(idForcat)[i].name,
-                      ),
-                    );
+                    ProductCategory productCategoryApi =
+                        productCategorylistforshow[i];
+                    if (productCategorylistforshow.isEmpty) {
+                      print(" false");
+                      return Text(
+                        'NO DATA',
+                        style: TextStyle(color: ColorForDesign().Gold),
+                      );
+                    } else {
+                      return GestureDetector(
+                        onTap: () {
+                          print(idForcat);
+                        },
+                        child: CardForsubcatogry(
+                          image: menuProductProvider.menuProduct[1].logoimage,
+                          price: productCategoryApi.price,
+                          textforname: productCategoryApi.nameEn,
+                        ),
+                      );
+                    }
                   }),
             )
           ],

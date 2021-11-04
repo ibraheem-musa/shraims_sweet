@@ -4,14 +4,12 @@ import 'package:first_app_for_test/main.dart';
 import 'package:first_app_for_test/provider/drawerprovider.dart';
 import 'package:first_app_for_test/screen/BottomNavigationBar/SettingsScreen.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/ContactUs.dart';
-import 'package:first_app_for_test/screen/DrawerScreen/Franchise.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/Galary.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/PrivacyandPolicy.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/TermsAndConditions.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/ordersHistory.dart';
 import 'package:first_app_for_test/screen/LoginScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerWidget extends StatefulWidget {
