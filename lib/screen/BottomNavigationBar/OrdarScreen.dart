@@ -19,6 +19,10 @@ class OrdarScreen extends StatefulWidget {
 }
 
 class _OrdarScreenState extends State<OrdarScreen> {
+  ScrollController scrollController = ScrollController();
+  bool scrolclosetop = false;
+
+  double topcontainer = 0;
   List<Category> categorylistforshow;
   List<ProductCategory> productCategorylistforshow;
 
@@ -51,8 +55,18 @@ class _OrdarScreenState extends State<OrdarScreen> {
 
   @override
   void initState() {
+    // final double haightFor = MediaQuery.of(context).size.height / 6;
     // TODO: implement initState
     super.initState();
+    scrollController.addListener(() {
+      double value = scrollController.offset / 185;
+      setState(() {
+        topcontainer = value;
+        scrolclosetop = scrollController.offset > 150;
+        print(MediaQuery.of(context).size.height / 6);
+      });
+    });
+
     _getProductCategory(1).then((productCategorylist) {
       setState(() {
         productCategorylistforshow = productCategorylist;
@@ -83,45 +97,52 @@ class _OrdarScreenState extends State<OrdarScreen> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height / 4,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) {
-                  Category categoryApi = categorylistforshow[index];
-                  if (categorylistforshow.isEmpty) {
-                    return Text(
-                      'NO DATA',
-                      style: TextStyle(color: ColorForDesign().Gold),
-                    );
-                  } else {
-                    return GestureDetector(
-                        onTap: () {
-                          int a = categoryApi.id;
+            AnimatedContainer(
+                height: !scrolclosetop
+                    ? MediaQuery.of(context).size.height / 4
+                    : MediaQuery.of(context).size.height / 5,
+                duration: Duration(milliseconds: 200),
+                child: Container(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (_, index) {
+                      Category categoryApi = categorylistforshow[index];
+                      if (categorylistforshow.isEmpty) {
+                        return Text(
+                          'NO DATA',
+                          style: TextStyle(color: ColorForDesign().Gold),
+                        );
+                      } else {
+                        return GestureDetector(
+                            onTap: () {
+                              int a = categoryApi.id;
 
-                          setState(() {
-                            _getProductCategory(a).then((productCategorylist) {
                               setState(() {
-                                productCategorylistforshow =
-                                    productCategorylist;
+                                _getProductCategory(a)
+                                    .then((productCategorylist) {
+                                  setState(() {
+                                    productCategorylistforshow =
+                                        productCategorylist;
+                                  });
+                                });
                               });
-                            });
-                          });
-                        },
-                        child: cercilCard(
-                          image:
-                              categoryImageprocaider.categoryImage[index].image,
-                          text: categoryApi.nameEn,
-                        ));
-                  }
-                },
-                itemCount: null == categorylistforshow
-                    ? 0
-                    : categorylistforshow.length,
-              ),
-            ),
+                            },
+                            child: cercilCard(
+                              image: categoryImageprocaider
+                                  .categoryImage[index].image,
+                              text: categoryApi.nameEn,
+                              scrol: scrolclosetop,
+                            ));
+                      }
+                    },
+                    itemCount: null == categorylistforshow
+                        ? 0
+                        : categorylistforshow.length,
+                  ),
+                )),
             Expanded(
               child: ListView.builder(
+                  controller: scrollController,
                   itemCount: null == productCategorylistforshow
                       ? 0
                       : productCategorylistforshow.length,
@@ -135,14 +156,34 @@ class _OrdarScreenState extends State<OrdarScreen> {
                         style: TextStyle(color: ColorForDesign().Gold),
                       );
                     } else {
-                      return GestureDetector(
-                        onTap: () {
-                          print(idForcat);
-                        },
-                        child: CardForsubcatogry(
-                          image: menuProductProvider.menuProduct[1].logoimage,
-                          price: productCategoryApi.price,
-                          textforname: productCategoryApi.nameEn,
+                      double scale = 1.0;
+                      if (topcontainer > 0.5) {
+                        scale = i + 0.5 - topcontainer;
+                        if (scale < 0) {
+                          scale = 0;
+                        } else if (scale > 1) {
+                          scale = 1;
+                        }
+                      }
+                      return Opacity(
+                        opacity: scale,
+                        child: Transform(
+                          alignment: Alignment.bottomCenter,
+                          transform: Matrix4.identity()..scale(scale, scale),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: GestureDetector(
+                              onTap: () {
+                                print(idForcat);
+                              },
+                              child: CardForsubcatogry(
+                                image: menuProductProvider
+                                    .menuProduct[1].logoimage,
+                                price: productCategoryApi.price,
+                                textforname: productCategoryApi.nameEn,
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     }
@@ -158,42 +199,55 @@ class _OrdarScreenState extends State<OrdarScreen> {
 class cercilCard extends StatelessWidget {
   String text;
   String image;
-  cercilCard({this.image, this.text});
+  bool scrol;
+  cercilCard({this.image, this.text, this.scrol});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Container(
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(50.0),
-        // ),
-        color: Colors.transparent,
+    return FittedBox(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
         child: Container(
-          height: MediaQuery.of(context).size.height / 4,
-          width: MediaQuery.of(context).size.width / 4,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.asset(
-                    image,
-                    height: MediaQuery.of(context).size.height / 10,
-                    fit: BoxFit.contain,
-                  )),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 30,
-              ),
-              Text(
-                text, textAlign: TextAlign.center,
-                // AppLocalizations.of(context).translate(text),
-                style: TextStyle(
-                  color: ColorForDesign().Gold,
-                  fontSize: 16,
-                ),
-              )
-            ],
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(50.0),
+          // ),
+          color: Colors.transparent,
+          child: Container(
+            height: MediaQuery.of(context).size.height / 4,
+            width: MediaQuery.of(context).size.width / 4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset(
+                      image,
+                      height: MediaQuery.of(context).size.height / 10,
+                      fit: BoxFit.contain,
+                    )),
+                !scrol
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height / 40,
+                      )
+                    : SizedBox(
+                        height: 0,
+                      ),
+                !scrol
+                    ? Container(
+                        child: Text(
+                          text, textAlign: TextAlign.center,
+                          // AppLocalizations.of(context).translate(text),
+                          style: TextStyle(
+                            color: ColorForDesign().Gold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      )
+                    : SizedBox(
+                        height: 0,
+                      )
+              ],
+            ),
           ),
         ),
       ),
@@ -201,60 +255,144 @@ class cercilCard extends StatelessWidget {
   }
 }
 
-class CardForsubcatogry extends StatelessWidget {
+class CardForsubcatogry extends StatefulWidget {
   String image;
   String textforname;
   int price;
   CardForsubcatogry({this.image, this.textforname, this.price});
 
   @override
+  State<CardForsubcatogry> createState() => _CardForsubcatogryState();
+}
+
+class _CardForsubcatogryState extends State<CardForsubcatogry> {
+  bool favorte = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.amber[200],
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-          height: MediaQuery.of(context).size.height / 6,
-          width: MediaQuery.of(context).size.width,
+    return Container(
+        height: 150,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+            color: ColorForDesign().black,
+            border: Border.all(color: ColorForDesign().Gold, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            boxShadow: [
+              BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
+            ]),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(15, 15, 5, 10),
           child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Image.asset(
-                  image,
-                  height: MediaQuery.of(context).size.height / 5,
-                  width: 150,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    Wrap(
-                      children: [
-                        Text(
-                          textforname,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      price.toString() + ' \$',
-                      style: TextStyle(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget.textforname,
+                    style: TextStyle(
                         fontSize: 20,
-                      ),
-                    )
-                  ],
-                ),
+                        fontWeight: FontWeight.bold,
+                        color: ColorForDesign().Gold),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    ' \$ ' + widget.price.toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: ColorForDesign().Gold),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          favorte = !favorte;
+                        });
+                      },
+                      icon: !favorte
+                          ? Icon(
+                              Icons.favorite_border,
+                              color: Colors.redAccent,
+                            )
+                          : Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ))
+                ],
               ),
+              Image.asset(
+                widget.image,
+                height: MediaQuery.of(context).size.height / 5,
+                width: 150,
+                fit: BoxFit.contain,
+              )
             ],
           ),
-        ),
-      ),
-    );
+        ));
+  }
+}
+
+class cardForProduct extends StatefulWidget {
+  const cardForProduct({key}) : super(key: key);
+
+  @override
+  _cardForProductState createState() => _cardForProductState();
+}
+
+class _cardForProductState extends State<cardForProduct> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 150,
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "name",
+                    style: const TextStyle(
+                        fontSize: 28, fontWeight: FontWeight.bold),
+                  ),
+                  // Text(
+                  //   "brand",
+                  //   style: const TextStyle(fontSize: 17, color: Colors.grey),
+                  // ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "",
+                    style: const TextStyle(
+                        fontSize: 25,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+              Image.asset(
+                "imag",
+                height: MediaQuery.of(context).size.height / 5,
+                width: 150,
+                fit: BoxFit.contain,
+              )
+            ],
+          ),
+        ));
   }
 }
