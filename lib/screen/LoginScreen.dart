@@ -363,16 +363,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                     // Row(
                                     //   children: [
-                                    //     Theme(
-                                    //       data: ThemeData(
-                                    //         unselectedWidgetColor:
-                                    //             ColorForDesign().Gold,
-                                    //       ),
+                                    // Theme(
+                                    // data: ThemeData(
+                                    //   unselectedWidgetColor:
+                                    //       ColorForDesign().Gold,
+                                    // ),
                                     //       child: Checkbox(
-                                    //         checkColor: ColorForDesign().black,
-                                    //         focusColor: ColorForDesign().Gold,
-                                    //         hoverColor: ColorForDesign().Gold,
-                                    //         activeColor: ColorForDesign().Gold,
+                                    // checkColor: ColorForDesign().black,
+                                    // focusColor: ColorForDesign().Gold,
+                                    // hoverColor: ColorForDesign().Gold,
+                                    // activeColor: ColorForDesign().Gold,
                                     //         value: checkboxvalue,
                                     //         onChanged: (bo) {
                                     //           setState(() {

@@ -63,6 +63,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: ColorForDesign().black,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -99,22 +100,82 @@ class _ProductDetailsState extends State<ProductDetails> {
                   );
                 } else {
                   print(productFeaturesApi.nameEn + "from chick");
-                  return Container(
-                      height: 70,
-                      child: CheckboxListTile(
-                        title: Text(
-                          productFeaturesApi.labelEn,
-                          style: TextStyle(color: Colors.amber),
+                  return Column(
+                    children: [
+                      Container(
+                        height: 70,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                productFeaturesApi.labelEn,
+                                style: TextStyle(
+                                  color: ColorForDesign().Gold,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: SizedBox(
+                                width: 25,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                  "You can take just   " +
+                                      productFeaturesApi.freeItems.toString() +
+                                      "   of this For Free   ",
+                                  style: TextStyle(
+                                    color: ColorForDesign().Gold,
+                                  )),
+                            ),
+                            Icon(
+                              Icons.arrow_drop_down,
+                              color: ColorForDesign().Gold,
+                            )
+                          ],
                         ),
-                        value: timeDilation,
-                        onChanged: (value) {
-                          print(productID);
-                          setState(() {
-                            timeDilation = value;
-                          });
-                        },
-                        secondary: const Icon(Icons.hourglass_empty),
-                      ));
+                      ),
+                      Container(
+                        height: 70.0 * 3 + 10,
+                        child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: 3,
+                            itemBuilder: (_, i) {
+                              return Container(
+                                  height: 70,
+                                  child: Theme(
+                                    data: ThemeData(
+                                      unselectedWidgetColor:
+                                          ColorForDesign().Gold,
+                                    ),
+                                    child: CheckboxListTile(
+                                      checkColor: ColorForDesign().black,
+                                      // focusColor: ColorForDesign().Gold,
+                                      // hoverColor: ColorForDesign().Gold,
+                                      activeColor: ColorForDesign().Gold,
+                                      title: Text(
+                                        "free 2",
+                                        style: TextStyle(color: Colors.amber),
+                                      ),
+                                      value: timeDilation,
+                                      onChanged: (value) {
+                                        print(productID);
+                                        setState(() {
+                                          timeDilation = value;
+                                        });
+                                      },
+                                      secondary: Icon(
+                                        Icons.arrow_right,
+                                        color: ColorForDesign().Gold,
+                                      ),
+                                    ),
+                                  ));
+                            }),
+                      )
+                    ],
+                  );
                 }
               },
               childCount: null == productFeatureslistforshow
