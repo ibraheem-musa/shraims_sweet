@@ -1,4 +1,5 @@
 import 'package:first_app_for_test/Colors.dart';
+import 'package:first_app_for_test/main.dart';
 import 'package:first_app_for_test/model/MenuProduct.dart';
 import 'package:first_app_for_test/model/catgorymodel.dart';
 import 'package:first_app_for_test/provider/CategoryImageprovaider.dart';
@@ -10,6 +11,7 @@ import 'package:first_app_for_test/provider/MenuCategoryprovider.dart';
 import 'package:first_app_for_test/provider/MenuSubCategoryprovider.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OrdarScreen extends StatefulWidget {
   const OrdarScreen({key}) : super(key: key);
@@ -99,8 +101,8 @@ class _OrdarScreenState extends State<OrdarScreen> {
           children: [
             AnimatedContainer(
                 height: !scrolclosetop
-                    ? MediaQuery.of(context).size.height / 4
-                    : MediaQuery.of(context).size.height / 5,
+                    ? MediaQuery.of(context).size.height / 5
+                    : MediaQuery.of(context).size.height / 8,
                 duration: Duration(milliseconds: 200),
                 child: Container(
                   child: ListView.builder(
@@ -115,6 +117,10 @@ class _OrdarScreenState extends State<OrdarScreen> {
                       } else {
                         return GestureDetector(
                             onTap: () {
+                              setState(() {
+                                scrolclosetop = false;
+                                topcontainer = 0;
+                              });
                               int a = categoryApi.id;
 
                               setState(() {
@@ -173,12 +179,28 @@ class _OrdarScreenState extends State<OrdarScreen> {
                           child: Align(
                             alignment: Alignment.topCenter,
                             child: GestureDetector(
-                              onTap: () {
-                                print(idForcat);
+                              onTap: () async {
+                                print(productCategoryApi.id.toString() +
+                                    "product id from order ");
+
+                                List listForproduct = [
+                                  productCategoryApi.nameEn,
+                                  "http://45.76.143.83/productImages/" +
+                                      productCategoryApi.logo,
+                                  productCategoryApi.id,
+                                ];
+                                Navigator.pushNamed(context,
+                                    nameroute.nameRouote_ProductDetails,
+                                    arguments: listForproduct);
+
+                                SharedPreferences sharedPreferences =
+                                    await SharedPreferences.getInstance();
+                                sharedPreferences.setInt('productCategoryApiid',
+                                    productCategoryApi.id);
                               },
                               child: CardForsubcatogry(
-                                image: menuProductProvider
-                                    .menuProduct[1].logoimage,
+                                image: "http://45.76.143.83/productImages/" +
+                                    productCategoryApi.logo,
                                 price: productCategoryApi.price,
                                 textforname: productCategoryApi.nameEn,
                               ),
@@ -208,46 +230,40 @@ class cercilCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Container(
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.circular(50.0),
-          // ),
-          color: Colors.transparent,
-          child: Container(
-            height: MediaQuery.of(context).size.height / 4,
-            width: MediaQuery.of(context).size.width / 4,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      image,
-                      height: MediaQuery.of(context).size.height / 10,
-                      fit: BoxFit.contain,
-                    )),
-                !scrol
-                    ? SizedBox(
-                        height: MediaQuery.of(context).size.height / 40,
-                      )
-                    : SizedBox(
-                        height: 0,
-                      ),
-                !scrol
-                    ? Container(
-                        child: Text(
-                          text, textAlign: TextAlign.center,
-                          // AppLocalizations.of(context).translate(text),
-                          style: TextStyle(
-                            color: ColorForDesign().Gold,
-                            fontSize: 16,
-                          ),
+          // height: MediaQuery.of(context).size.height / 4,
+          // width: MediaQuery.of(context).size.width / 4,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.asset(
+                    image,
+                    height: MediaQuery.of(context).size.height / 10,
+                    fit: BoxFit.contain,
+                  )),
+              !scrol
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height / 40,
+                    )
+                  : SizedBox(
+                      height: 0,
+                    ),
+              !scrol
+                  ? Container(
+                      child: Text(
+                        text, textAlign: TextAlign.center,
+                        // AppLocalizations.of(context).translate(text),
+                        style: TextStyle(
+                          color: ColorForDesign().Gold,
+                          fontSize: 16,
                         ),
-                      )
-                    : SizedBox(
-                        height: 0,
-                      )
-              ],
-            ),
+                      ),
+                    )
+                  : SizedBox(
+                      height: 0,
+                    )
+            ],
           ),
         ),
       ),
@@ -258,7 +274,7 @@ class cercilCard extends StatelessWidget {
 class CardForsubcatogry extends StatefulWidget {
   String image;
   String textforname;
-  int price;
+  var price;
   CardForsubcatogry({this.image, this.textforname, this.price});
 
   @override
@@ -274,7 +290,7 @@ class _CardForsubcatogryState extends State<CardForsubcatogry> {
         height: 150,
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-            color: ColorForDesign().black,
+            color: Color(0x30bf942e),
             border: Border.all(color: ColorForDesign().Gold, width: 1),
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             boxShadow: [
@@ -285,51 +301,73 @@ class _CardForsubcatogryState extends State<CardForsubcatogry> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    widget.textforname,
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: ColorForDesign().Gold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    ' \$ ' + widget.price.toString(),
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: ColorForDesign().Gold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        setState(() {
-                          favorte = !favorte;
-                        });
-                      },
-                      icon: !favorte
-                          ? Icon(
-                              Icons.favorite_border,
-                              color: Colors.redAccent,
-                            )
-                          : Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            ))
-                ],
+              Expanded(
+                child: Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Wrap(
+                          children: [
+                            RichText(
+                              textAlign: TextAlign.left,
+                              text: TextSpan(
+                                text: widget.textforname,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorForDesign().Gold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          ' \$ ' + widget.price.toString(),
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: ColorForDesign().Gold),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              favorte = !favorte;
+                            });
+                          },
+                          icon: !favorte
+                              ? Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.redAccent,
+                                )
+                              : Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )),
+                    )
+                  ],
+                ),
               ),
-              Image.asset(
-                widget.image,
-                height: MediaQuery.of(context).size.height / 5,
-                width: 150,
-                fit: BoxFit.contain,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Image.network(
+                    widget.image,
+                    height: MediaQuery.of(context).size.height / 3,
+                    width: MediaQuery.of(context).size.width / 3,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               )
             ],
           ),
@@ -337,6 +375,7 @@ class _CardForsubcatogryState extends State<CardForsubcatogry> {
   }
 }
 
+//----------------------------------------------------------------------------------
 class cardForProduct extends StatefulWidget {
   const cardForProduct({key}) : super(key: key);
 

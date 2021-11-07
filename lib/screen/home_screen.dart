@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:first_app_for_test/Colors.dart';
 import 'package:first_app_for_test/applocal.dart';
+import 'package:first_app_for_test/screen/BottomNavigationBar/FavoriteScreen.dart';
 import 'package:first_app_for_test/screen/BottomNavigationBar/Notifications.dart';
 import 'package:first_app_for_test/screen/BottomNavigationBar/OrdarScreen.dart';
 import 'package:first_app_for_test/screen/BottomNavigationBar/SettingsScreen.dart';
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     "Cartwidget",
     "ordernowwidget",
     "notificationwidget",
-    "settingwidget",
+    "favoriteScreen",
   ];
 
   @override
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       CartScreen(),
       OrdarScreen(),
       NotifficationScreen(),
-      SettingScreen(),
+      favoriteScreen(),
     ];
 
     return Scaffold(
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Icon(Icons.account_balance_wallet_outlined,
                 color: ColorForDesign().black, size: 30),
             Icon(Icons.notifications, color: ColorForDesign().black, size: 30),
-            Icon(Icons.settings, color: ColorForDesign().black, size: 30)
+            Icon(Icons.favorite, color: ColorForDesign().black, size: 30)
           ],
           animationDuration: Duration(milliseconds: 300),
           animationCurve: Curves.linearToEaseOut,

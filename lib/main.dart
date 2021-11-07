@@ -3,8 +3,9 @@ import 'package:first_app_for_test/provider/CategoryImageprovaider.dart';
 import 'package:first_app_for_test/provider/MenuCategoryprovider.dart';
 import 'package:first_app_for_test/provider/MenuSubCategoryprovider.dart';
 import 'package:first_app_for_test/screen/BottomNavigationBar/OrdarScreen.dart';
+import 'package:first_app_for_test/screen/LoginScreen.dart';
 import 'package:first_app_for_test/screen/MenuCategoryScreen.dart';
-import 'package:first_app_for_test/screen/ProductDetails.dart';
+import 'package:first_app_for_test/screen/supscreenInScreens.dart/ProductDetails.dart';
 import 'package:first_app_for_test/screen/home_screen.dart';
 import 'package:first_app_for_test/widget/Splash_Screen.dart';
 import 'package:first_app_for_test/provider/drawerprovider.dart';
@@ -96,6 +97,7 @@ class MyAppState extends State<MyApp> {
                 MenuCategoryForsupCategory(),
             nameroute.nameRouote_OrdarScreen: (ctx) => OrdarScreen(),
             nameroute.nameRouote_ProductDetails: (ctx) => ProductDetails(),
+            nameroute.nameRouote_Loginscreen: (ctx) => LoginScreen(),
           },
         ));
   }
@@ -107,4 +109,5 @@ class nameroute {
   static const nameRouote_MenuCategoryForsupCategory =
       '/MenuCategoryForsupCategory';
   static const nameRouote_ProductDetails = '/ProductDetails';
+  static const nameRouote_Loginscreen = '/Loginscreen';
 }

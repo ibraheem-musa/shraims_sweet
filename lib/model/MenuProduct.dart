@@ -24,7 +24,7 @@ class ProductCategory {
   final String nameEn;
   final String nameFr;
   final String logo;
-  final int price;
+  final num price;
 
   factory ProductCategory.fromJson(Map<String, dynamic> json) =>
       ProductCategory(

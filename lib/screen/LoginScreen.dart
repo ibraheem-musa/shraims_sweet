@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:first_app_for_test/Colors.dart';
 import 'package:first_app_for_test/main.dart';
 import 'package:first_app_for_test/model/User.dart';
+import 'package:first_app_for_test/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -161,7 +162,10 @@ class _LoginScreenState extends State<LoginScreen> {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString('userEmail', userEmail);
-      Navigator.pushReplacementNamed(context, nameroute.nameRouote_HomeScreen);
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomeScreen()));
+      // Navigator.push
+      // Navigator.pushReplacementNamed(context, nameroute.nameRouote_HomeScreen);
 // User(error:json['error'],user:json['email'],message: json['message']  );
 
     }

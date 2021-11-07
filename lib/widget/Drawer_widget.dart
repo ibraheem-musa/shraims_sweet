@@ -101,10 +101,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       width: MediaQuery.of(context).size.width,
                       child: IconButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
+                            Navigator.popAndPushNamed(
+                                context, nameroute.nameRouote_Loginscreen);
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => LoginScreen()));
                           },
                           icon: Container(
                               width: 100,
@@ -117,41 +119,66 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     )
                   : SizedBox(),
             ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              child: ListView(
-                children: [
-                  ListtileRForListdrwer(
-                    opject: Galary(),
-                    text: "gallery",
+
+            ListtileRForListdrwer(
+              opject: Galary(),
+              text: "gallery",
+            ),
+            ListtileRForListdrwer(
+              opject: OrdersHistory(),
+              text: "ordersHistory",
+            ),
+            ListtileRForListdrwer(
+              opject: ContactUs(),
+              text: "ContactUs",
+            ),
+            //ListtileRForListdrwer(opject: Franchise(),text: "franchise",),
+            ListtileRForListdrwer(
+              opject: PrivacyAndPolicy(),
+              text: "PrivacyandPolicy",
+            ),
+            ListtileRForListdrwer(
+              opject: TermsAndConditions(),
+              text: "TermsandCondition",
+            ),
+            Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    AppLocalizations.of(context).translate("languageChange"),
+                    style: TextStyle(fontSize: 15),
                   ),
-                  ListtileRForListdrwer(
-                    opject: OrdersHistory(),
-                    text: "ordersHistory",
-                  ),
-                  ListtileRForListdrwer(
-                    opject: ContactUs(),
-                    text: "ContactUs",
-                  ),
-                  //ListtileRForListdrwer(opject: Franchise(),text: "franchise",),
-                  ListtileRForListdrwer(
-                    opject: PrivacyAndPolicy(),
-                    text: "PrivacyandPolicy",
-                  ),
-                  ListtileRForListdrwer(
-                    opject: TermsAndConditions(),
-                    text: "TermsandCondition",
-                  ),
-                  Column(
+                  onTap: () {
+                    case4();
+                  },
+                ),
+                Divider(
+                  height: 0,
+                  color: Colors.black,
+                  thickness: 1,
+                  indent: 5,
+                  endIndent: 25,
+                )
+              ],
+            ),
+            loginORlogout
+                ? Column(
                     children: [
                       ListTile(
                         title: Text(
-                          AppLocalizations.of(context)
-                              .translate("languageChange"),
+                          AppLocalizations.of(context).translate("LogOut"),
                           style: TextStyle(fontSize: 15),
                         ),
-                        onTap: () {
-                          case4();
+                        onTap: () async {
+                          SharedPreferences sharedPreferences =
+                              await SharedPreferences.getInstance();
+                          sharedPreferences.remove('userEmail');
+                          Navigator.pushReplacementNamed(
+                              context, nameroute.nameRouote_HomeScreen);
+
+                          setState(() {
+                            loginORlogout = !loginORlogout;
+                          });
                         },
                       ),
                       Divider(
@@ -162,41 +189,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         endIndent: 25,
                       )
                     ],
-                  ),
-                  loginORlogout
-                      ? Column(
-                          children: [
-                            ListTile(
-                              title: Text(
-                                AppLocalizations.of(context)
-                                    .translate("LogOut"),
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              onTap: () async {
-                                SharedPreferences sharedPreferences =
-                                    await SharedPreferences.getInstance();
-                                sharedPreferences.remove('userEmail');
-                                Navigator.pushReplacementNamed(
-                                    context, nameroute.nameRouote_HomeScreen);
-
-                                setState(() {
-                                  loginORlogout = !loginORlogout;
-                                });
-                              },
-                            ),
-                            Divider(
-                              height: 0,
-                              color: Colors.black,
-                              thickness: 1,
-                              indent: 5,
-                              endIndent: 25,
-                            )
-                          ],
-                        )
-                      : SizedBox(),
-                ],
-              ),
-            ),
+                  )
+                : SizedBox(),
           ],
         ),
       ),
