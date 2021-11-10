@@ -1,6 +1,9 @@
+import 'package:first_app_for_test/Colors.dart';
 import 'package:first_app_for_test/model/MenuProduct.dart';
+import 'package:first_app_for_test/screen/BottomNavigationBar/OrdarScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class favoriteScreen extends StatefulWidget {
   const favoriteScreen({key}) : super(key: key);
@@ -10,38 +13,26 @@ class favoriteScreen extends StatefulWidget {
 }
 
 class _favoriteScreenState extends State<favoriteScreen> {
-  List<ProductCategory> productCategorylistforshow;
-
-  Future<List<ProductCategory>> _getProductCategory(int id) async {
-    String url =
-        'http://45.76.143.83/api/authentication/productCategory.php?category_id=' +
-            id.toString();
-    var response = await http.post(
-      Uri.parse(url),
-    );
-    // print(response.body);
-    if (response.statusCode == 200) {
-      final List<ProductCategory> productCategorylist =
-          productCategoryFromJson(response.body);
-      return productCategorylist;
-    }
-  }
-
-  @override
-  void initState() {
-    // final double haightFor = MediaQuery.of(context).size.height / 6;
-    // TODO: implement initState
-    super.initState();
-
-    _getProductCategory(1).then((productCategorylist) {
-      setState(() {
-        productCategorylistforshow = productCategorylist;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (_, i) {
+            return Align(
+              alignment: Alignment.topCenter,
+              child: GestureDetector(
+                onTap: () {},
+                child: CardForsubcatogry(
+                  image:
+                      "https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg",
+                  price: 25,
+                  textforname: "wafil",
+                ),
+              ),
+            );
+          }),
+    );
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class CategoryImageprocaider with ChangeNotifier {
   List<CategoryImage> categoryImage = [
     CategoryImage(
-        image: 'lib/assets/HomescreenIcon/speciality_icon.png',
+        image: 'lib/assets/HomescreenIcon/Special today-02.jpg',
         logoImage: 'lib/assets/HomescreenIcon/icon-01.jpg'),
     CategoryImage(
         image: 'lib/assets/HomescreenIcon/speciality_icon.png',
