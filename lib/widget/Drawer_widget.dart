@@ -1,14 +1,13 @@
 import 'package:first_app_for_test/Colors.dart';
 import 'package:first_app_for_test/applocal.dart';
 import 'package:first_app_for_test/main.dart';
-import 'package:first_app_for_test/provider/drawerprovider.dart';
 import 'package:first_app_for_test/screen/BottomNavigationBar/SettingsScreen.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/ContactUs.dart';
+import 'package:first_app_for_test/screen/DrawerScreen/Franchise.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/Galary.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/PrivacyandPolicy.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/TermsAndConditions.dart';
 import 'package:first_app_for_test/screen/DrawerScreen/ordersHistory.dart';
-import 'package:first_app_for_test/screen/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,74 +75,135 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.black38,
-              ),
-              currentAccountPicture: ClipRRect(
-                borderRadius: BorderRadius.circular(50.0),
-                child: Image.asset('lib/assets/Shraims_Logo.jpg'),
-              ),
-              otherAccountsPictures: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingScreen()));
-                    },
-                    icon: Icon(Icons.settings))
-              ],
-              accountName: Text('data'),
-              accountEmail: !loginORlogout
-                  ? Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: IconButton(
-                          onPressed: () {
-                            Navigator.popAndPushNamed(
-                                context, nameroute.nameRouote_Loginscreen);
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => LoginScreen()));
-                          },
-                          icon: Container(
-                              width: 100,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text("Login"),
-                                ],
-                              ))),
-                    )
-                  : SizedBox(),
-            ),
+            !loginORlogout
+                ? Row(
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            primary: ColorForDesign().Gold,
+                            side: BorderSide(width: 2.0, color: Colors.black),
+                            // backgroundColor: ColorForDesign().Gold,
+                            fixedSize: Size(200, 35)),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, nameroute.nameRouote_Loginscreen);
+                        },
+                        child: Text('Log in',
+                            style: TextStyle(
+                                fontSize: 20, color: ColorForDesign().black)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SettingScreen()));
+                            },
+                            icon: Icon(Icons.settings)),
+                      )
+                    ],
+                  )
+                : Container(
+                    color: Colors.black38,
+                    height: MediaQuery.of(context).size.height / 4,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          // height: MediaQuery.of(context).size.height / 6,
 
+                          child: Stack(
+                            children: [
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(1000.0),
+                                    child: Image.asset(
+                                        'lib/assets/Shraims_Logo.jpg'),
+                                  ),
+                                ),
+                              ),
+                              //   ],
+                              // ),
+                              Positioned(
+                                right: 5,
+                                child: IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SettingScreen()));
+                                    },
+                                    icon: Icon(Icons.settings)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Ibraheem",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            finaluserEmail,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
             ListtileRForListdrwer(
+              iconForListTile: Icons.image,
               opject: Galary(),
               text: "gallery",
             ),
             ListtileRForListdrwer(
+              iconForListTile: Icons.checklist_rounded,
               opject: OrdersHistory(),
               text: "ordersHistory",
             ),
             ListtileRForListdrwer(
+              iconForListTile: Icons.message_rounded,
               opject: ContactUs(),
               text: "ContactUs",
             ),
-            //ListtileRForListdrwer(opject: Franchise(),text: "franchise",),
+            // ListtileRForListdrwer(
+            //   opject: Franchise(),
+            //   text: "franchise",
+            // ),
             ListtileRForListdrwer(
+              iconForListTile: Icons.privacy_tip,
               opject: PrivacyAndPolicy(),
               text: "PrivacyandPolicy",
             ),
             ListtileRForListdrwer(
+              iconForListTile: Icons.assignment_outlined,
               opject: TermsAndConditions(),
               text: "TermsandCondition",
             ),
             Column(
               children: [
                 ListTile(
+                  leading: Icon(
+                    Icons.language,
+                    color: ColorForDesign().black,
+                  ),
                   title: Text(
                     AppLocalizations.of(context).translate("languageChange"),
                     style: TextStyle(fontSize: 15),
@@ -165,6 +225,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ? Column(
                     children: [
                       ListTile(
+                        leading: Icon(
+                          Icons.logout_outlined,
+                          color: ColorForDesign().black,
+                        ),
                         title: Text(
                           AppLocalizations.of(context).translate("LogOut"),
                           style: TextStyle(fontSize: 15),
@@ -210,13 +274,18 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 class ListtileRForListdrwer extends StatelessWidget {
   String text;
   var opject;
-  ListtileRForListdrwer({this.opject, this.text});
+  IconData iconForListTile;
+  ListtileRForListdrwer({this.iconForListTile, this.opject, this.text});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ListTile(
+          leading: Icon(
+            iconForListTile,
+            color: ColorForDesign().black,
+          ),
           title: Text(
             AppLocalizations.of(context).translate(text),
             style: TextStyle(fontSize: 15),

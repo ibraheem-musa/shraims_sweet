@@ -6,8 +6,6 @@ import 'package:first_app_for_test/provider/CategoryImageprovaider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:first_app_for_test/applocal.dart';
-import 'package:first_app_for_test/provider/MenuCategoryprovider.dart';
 import 'package:first_app_for_test/provider/MenuSubCategoryprovider.dart';
 
 import 'package:provider/provider.dart';
@@ -61,7 +59,7 @@ class _OrdarScreenState extends State<OrdarScreen> {
     // TODO: implement initState
     super.initState();
     scrollController.addListener(() {
-      double value = scrollController.offset / 185;
+      double value = scrollController.offset / 180;
       setState(() {
         topcontainer = value;
         scrolclosetop = scrollController.offset > 150;

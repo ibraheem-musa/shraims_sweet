@@ -234,7 +234,7 @@ class PaymentPart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "sup total",
+                "Suptotal",
                 style: TextStyle(color: ColorForDesign().Gold, fontSize: 25),
               ),
               Text(
@@ -247,7 +247,7 @@ class PaymentPart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "service",
+                "Service",
                 style: TextStyle(color: ColorForDesign().Gold, fontSize: 25),
               ),
               Text(
@@ -256,18 +256,28 @@ class PaymentPart extends StatelessWidget {
               )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "totale",
-                style: TextStyle(color: ColorForDesign().Gold, fontSize: 25),
-              ),
-              Text(
-                textForTotalPrice.toString(),
-                style: TextStyle(color: ColorForDesign().Gold, fontSize: 25),
-              )
-            ],
+          Divider(
+            color: Colors.white,
+            endIndent: 5,
+            height: 2,
+            indent: 5,
+            thickness: 2,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 10, 5, 2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Totale",
+                  style: TextStyle(color: ColorForDesign().Gold, fontSize: 25),
+                ),
+                Text(
+                  textForTotalPrice.toString(),
+                  style: TextStyle(color: ColorForDesign().Gold, fontSize: 25),
+                )
+              ],
+            ),
           ),
         ],
       ),

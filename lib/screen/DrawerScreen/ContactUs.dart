@@ -4,8 +4,6 @@ import 'package:first_app_for_test/widget/contactUsWdget/EmailandutherinContactU
 import 'package:first_app_for_test/widget/contactUsWdget/MessageinContactUs.dart';
 import 'package:first_app_for_test/widget/contactUsWdget/SocialMediaContactUs.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({key}) : super(key: key);
@@ -15,33 +13,44 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
-  
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+        // backgroundColor: Colors.grey[400],
         appBar: AppBar(
-            title: Text(AppLocalizations.of(context).translate('ContactUs')),
-            backgroundColor: HexColor("#bf942e")),
+            centerTitle: true,
+            title: Text(
+              AppLocalizations.of(context).translate('ContactUs'),
+              style: TextStyle(color: ColorForDesign().Gold),
+            ),
+            backgroundColor: ColorForDesign().black),
         body: Container(
-          color:  ColorForDesign().black,
+          color: ColorForDesign().black,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
-            child: Column(children: [
-          
+            child: Column(
+              children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10,right: 10,top: 8),
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 8),
                   child: MessageandNot(),
                 ),
-                Divider(thickness: 2,color: ColorForDesign().Gold,indent: 15,endIndent: 15,),
+                Divider(
+                  thickness: 2,
+                  color: ColorForDesign().Gold,
+                  indent: 15,
+                  endIndent: 15,
+                ),
                 SocialMedia(),
-                Divider(thickness: 2,color:  ColorForDesign().Gold,indent: 15,endIndent: 15,),
+                Divider(
+                  thickness: 2,
+                  color: ColorForDesign().Gold,
+                  indent: 15,
+                  endIndent: 15,
+                ),
                 Emailandmap(),
-          
-              ],),
+              ],
+            ),
           ),
-            
-          
         ));
   }
 }
